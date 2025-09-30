@@ -4,6 +4,7 @@
  */
 package cs241_assignment2.knowledge_repository;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,5 +13,17 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class PostService {
-    
+    private final PostRepository postRepo;
+
+    public PostService(PostRepository postRepo) {
+        this.postRepo = postRepo;
+    }
+
+    public List<Post> getPostsByThread(Thread thread) {
+        return thread.getPosts();
+    }
+
+    public Post savePost(Post post) {
+        return postRepo.save(post);
+    }
 }
