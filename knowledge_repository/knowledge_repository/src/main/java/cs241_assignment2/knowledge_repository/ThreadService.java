@@ -4,6 +4,7 @@
  */
 package cs241_assignment2.knowledge_repository;
 
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 /**
@@ -12,5 +13,21 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ThreadService {
-    
+    private final ThreadRepository threadRepo;
+
+    public ThreadService(ThreadRepository threadRepo) {
+        this.threadRepo = threadRepo;
+    }
+
+    public List<Thread> getAllThreads() {
+        return threadRepo.findAll();
+    }
+
+    public Thread getThread(Long id) {
+        return threadRepo.findById(id).orElseThrow();
+    }
+
+    public Thread saveThread(Thread thread) {
+        return threadRepo.save(thread);
+    }
 }
