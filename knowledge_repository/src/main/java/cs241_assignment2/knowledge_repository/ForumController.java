@@ -4,6 +4,7 @@
  */
 package cs241_assignment2.knowledge_repository;
 
+import java.security.Principal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -41,22 +42,33 @@ public class ForumController {
     }
 
     @GetMapping("/new_thread")
-    public String newThreadForm(Model model) {
-        model.addAttribute("thread", new ForumThread());
+    public String newThreadForm(Model model, Principal principal) {
+        ForumThread thread = new ForumThread();
+        thread.setAuthor(principal.getName());
+        model.addAttribute("thread", thread);
         return "new_thread";
     }
 
     @PostMapping("/new_thread")
-    public String createThread(@ModelAttribute ForumThread thread) {
+    public String createThread(@ModelAttribute ForumThread thread, Principal principal) {
+        thread.setAuthor(principal.getName());
         threadService.save(thread);
         return "redirect:/forum";
     }
 
     @PostMapping("/{thread_id}/reply")
-    public String replyToThread(@PathVariable("thread_id") Long id, @ModelAttribute Post post) {
+    public String replyToThread(@PathVariable("thread_id") Long id, @ModelAttribute Post post, Principal principal) {
         ForumThread thread = threadService.get(id);
+        post.setAuthor(principal.getName());
         post.setThread(thread);
         postService.savePost(post);
         return "redirect:/forum/" + id;
+    }
+    
+    @PostMapping("/{thread_id}/delete")
+    public String deleteThread(@PathVariable(name = "thread_id") Long id, Principal principal) {
+        ForumThread thread = threadService.get(id);
+        threadService.delete(id);
+        return "redirect:/forum";
     }
 }

@@ -8,31 +8,35 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <head>
         <meta charset="UTF-8" />
         <title th:text="${thread.title}">Thread</title>
+        <link rel="stylesheet" th:href="@{/css/thread.css}" type="text/css" />
     </head>
     <body>
-        <h1 th:text="${thread.title}">Thread Title</h1>
-        <p><strong>Author:</strong> <span th:text="${thread.author}">Author</span></p>
-        <p th:text="${thread.body}">Thread content goes here...</p>
+        <div class="thread-container">
+            <h1 th:text="${thread.title}">Thread Title</h1>
+            <p class="thread-meta">
+                Posted by <span th:text="${thread.author}">Author</span>
+            </p>
+            <div class="thread-body" th:text="${thread.body}">Thread content...</div>
 
-        <hr />
+            <hr/>
 
-        <h3>Posts</h3>
-        <div th:each="post : ${posts}">
-            <p><strong th:text="${post.author}">User</strong>: <span th:text="${post.body}">Post content</span></p>
-            <hr />
+            <h3>Comments</h3>
+            <div class="comments-container">
+                <div th:each="post : ${posts}" class="comment-card">
+                    <p>
+                        <strong th:text="${post.author}">User</strong>:
+                        <span th:text="${post.body}">Comment content</span>
+                    </p>
+                </div>
+            </div>
+
+            <h3>Add a Reply</h3>
+            <form th:action="@{/forum/{thread_id}/reply(thread_id=${thread.thread_id})}" th:object="${newPost}" method="post">
+                <textarea th:field="*{body}" rows="3" placeholder="Write your reply..." required="required"></textarea><br/>
+                <button type="submit">Reply</button>
+            </form>
+
+            <a th:href="@{/forum}">Back to Forum</a>
         </div>
-
-        <h3>Add a Reply</h3>
-        <form th:action="@{/forum/{thread_id}/reply(thread_id=${thread.thread_id})}" th:object="${newPost}" method="post">
-            <label for="author">Author:</label><br />
-            <input type="text" id="author" th:field="*{author}" required="required" /><br /><br />
-
-            <label for="body">Content:</label><br />
-            <textarea id="body" th:field="*{body}" rows="5" cols="50" required="required"></textarea><br /><br />
-
-            <button type="submit">Reply</button>
-        </form>
-
-        <a href="/forum">Back to Forum</a>
     </body>
 </html>

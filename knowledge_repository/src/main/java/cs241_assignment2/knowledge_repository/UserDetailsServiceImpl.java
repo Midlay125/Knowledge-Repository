@@ -4,15 +4,18 @@
  */
 package cs241_assignment2.knowledge_repository;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author Issac
  */
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     
     @Autowired
@@ -25,5 +28,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if(user == null) { throw new UsernameNotFoundException("Could not find user"); }
         
         return new MyUserDetails(user);
+    }
+    
+    public List<User> listAllUsers() {
+        return userRepository.findAll();
     }
 }

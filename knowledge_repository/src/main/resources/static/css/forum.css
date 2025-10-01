@@ -1,0 +1,88 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 2, 2025, 3:09:51 AM
+    Author     : Issac
+*/
+
+/* General page styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #dae0e6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.header {
+  background-color: #ffffff;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+/* Container for content */
+.container {
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.nav a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #0079d3;
+}
+
+.btn-new-thread {
+  background: #0079d3;
+  color: white !important;
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+/* Threads list */
+.threads {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Each thread card */
+.thread-card {
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.thread-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #1a1a1b;
+  text-decoration: none;
+}
+
+.thread-title:hover {
+  color: #0079d3;
+}
+
+.thread-meta {
+  font-size: 0.8rem;
+  color: #7c7c7c;
+  margin: 0.3rem 0 0.8rem;
+}
+
+.thread-body {
+  font-size: 0.9rem;
+  color: #333;
+}

@@ -4,33 +4,44 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8"/>
-        <title>Discussion Forum</title>
-    </head>
-    <body>
-        <h1>Discussion Forum</h1>
+      xmlns:th="http://www.thymeleaf.org"
+      lang="en" xml:lang="en">
+  <head>
+    <title>Discussion Forum</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/forum.css}" />
+  </head>
+  <body>
+    <header class="header">
+      <h1>Discussion Forum</h1>
+    </header>
 
-        <a href="/" >Back to Home</a> |
-        <a href="/forum/new_thread">Start New Thread</a>
+    <main class="container">
+      <div class="nav">
+        <a th:href="@{/}">🏠 Home</a>
+        <a th:href="@{/forum/new_thread}" class="btn-new-thread">+ New Thread</a>
+      </div>
 
-        <hr/>
+      <!-- Thread list -->
+      <div class="threads">
+        <div th:each="thread : ${threads}" class="thread-card">
+          <a th:href="@{/forum/{id}(id=${thread.thread_id})}" class="thread-title" 
+             th:text="${thread.title}">Thread Title</a>
 
-        <!-- List of threads -->
-        <div th:if="${threads != null}">
-            <ul>
-                <li th:each="thread : ${threads}">
-                    <a th:href="@{/forum/{id}(id=${thread.thread_id})}" 
-                       th:text="${thread.title}">Thread Title</a>
-                    <span> by <span th:text="${thread.author}">Author</span></span>
-                </li>
-            </ul>
+          <div class="thread-meta">
+            <span>by <span th:text="${thread.author}">Author</span></span>
+            • 
+            <span th:text="${#temporals.format(thread.createdAt, 'MMM dd, yyyy HH:mm')}">Date</span>
+          </div>
+
+          <p class="thread-body" th:text="${#strings.abbreviate(thread.body, 200)}">
+            Thread preview text...
+          </p>
+            <form th:action="@{/forum/{thread_id}/delete(thread_id=${thread.thread_id})}" method="post" style="display:inline;">
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this thread?');">Delete</button>
+            </form>
         </div>
-
-        <div th:if="${threads == null or #lists.isEmpty(threads)}">
-            <p>No threads yet. Be the first to create one!</p>
-        </div>
-
-    </body>
+      </div>
+    </main>
+  </body>
 </html>

@@ -4,15 +4,172 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
 -->
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
     <head>
-        <title>Homepage</title>
         <meta charset="UTF-8"/>
+        <title>Circle of Knowledge - Home</title>
+
+        <!-- Bootstrap CSS -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+       
+        <!-- Custom CSS -->
+        <link rel="stylesheet" th:href="@{/css/index.css}" type="text/css" />
+
     </head>
-    <body>
-        <div align="center">
-            <h1>Default Homepage</h1>
-            <a href="/forum">Discussion Forum</a>
+    <body class="bg-light min-vh-100 d-flex flex-column">
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand d-flex align-items-center" th:href="@{/}">
+                  <img src="https://www.queensu.ca/indigenous/sites/oiiwww/files/2021-01/Humility.jpg" 
+                       alt="Logo" width="50" height="50" class="rounded me-2" />
+                  <h4 class="Name"><strong>Circle Of<br/>Knowledge</strong></h4>
+                </a>
+                <form class="d-flex mx-auto w-50" role="search">
+                  <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search"/>
+                  <button class="btn btn-success" type="submit">🔍</button>
+                </form>
+                <div class="navbar-brand d-flex align-items-center" th:href="@{/}">
+                  <img src="https://static.vecteezy.com/system/resources/thumbnails/001/505/138/small_2x/notification-bell-icon-free-vector.jpg" 
+                       alt="Notification" width="40" height="40" class="rounded me-2"/>
+                  <img src="https://cdn-icons-png.flaticon.com/512/7077/7077313.png" 
+                       alt="Profile" width="40" height="40" class="rounded"/>
+                </div>
+                <div sec:authorize="isAuthenticated()">
+                    Welcome <b><span sec:authentication="name">Username</span></b>
+                    &nbsp;
+                    <i><span sec:authentication="principal.authorities">Roles</span></i>
+                </div>
+                <form th:action="@{/logout}" method="post">
+                    <input type="submit" value="Logout" />
+                </form>
+            </div>
+        </nav>
+
+        <!-- Navigation Menu -->
+        <div class="bg-success-subtle py-2">
+          <ul class="nav justify-content-center">
+            <li class="nav-item"><a class="nav-link text-dark fw-bold" th:href="@{/}">Home</a></li>
+            <li class="nav-item"><a class="nav-link text-dark fw-bold" th:href="@{/}">Archive</a></li>
+           <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-dark fw-bold" th:href="@{/}" role="button" data-bs-toggle="dropdown">Resources</a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" th:href="@{/}">Craft</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/}">Pottery</a></li>
+                    <li><a class="dropdown-item" th:href="@{/}">Weaving</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" th:href="@{/}">Environment</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/}">Fishing</a></li>
+                    <li><a class="dropdown-item" th:href="@{/}">Hunting</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" th:href="@{/}">Healing</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/}">Herbal</a></li>
+                    <li><a class="dropdown-item" th:href="@{/}">Medicine</a></li>
+                  </ul>
+                </li>
+                <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" th:href="@{/}">History</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" th:href="@{/}">Stories</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li sec:authorize="hasAnyAuthority('ADMIN')" class="nav-item"><a class="nav-link text-dark fw-bold" th:href="@{/users}">Users</a></li>
+            <li class="nav-item"><a class="nav-link text-dark fw-bold" th:href="@{/forum}">Discussion Forum</a></li>
+          </ul>
         </div>
+
+        <!-- Main Content -->
+        <main class="container my-5 flex-grow-1">
+
+          <!-- Carousel -->
+          <div id="knowledgeCarousel" class="carousel slide shadow rounded mb-5" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active bg-success text-white text-center p-5">
+                <h2> Ancient Pottery</h2>
+              </div>
+              <div class="carousel-item bg-success text-white text-center p-5">
+                <h2> Healing Herbs</h2>
+              </div>
+              <div class="carousel-item bg-success text-white text-center p-5">
+                <h2> Fishing Traditions</h2>
+              </div>
+              <div class="carousel-item bg-success text-white text-center p-5">
+                <h2> Historical Stories</h2>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#knowledgeCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon"></span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#knowledgeCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon"></span>
+            </button>
+          </div>
+
+          <!-- Announcements -->
+          <section>
+            <div class="card shadow border-success">
+              <div class="card-header bg-success text-white">
+                <h3 class="mb-0"><strong>Announcements</strong></h3>
+              </div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">📢 <strong>Admin announcements</strong></li>
+                  <li class="list-group-item">📢 <strong>Posters / Event Details</strong></li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <div>
+          <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <a class="nav-link text-white fw-bold" th:href="@{/}">
+                    <img src="https://cdn.vectorstock.com/i/1000v/05/58/gmail-logo-icon-google-email-vector-50150558.jpg" 
+                        alt="Email Logo" width="38" height="30" class="rounded me-2"/>Circle_of_Knowledge@gmail.com
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white fw-bold" th:href="@{/}">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png" 
+                   alt="Instagram Logo" width="30" height="30" class="rounded me-2"/>@Knowledge_circle
+                </a>
+            </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white fw-bold" th:href="@{/}">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/e/ee/Logo_de_Facebook.png" 
+                   alt="Logo" width="30" height="30" class="rounded me-2"/>@Knowledge_circle
+                    </a>
+                </li>
+            <li class="nav-item">
+                <a class="nav-link text-white fw-bold" th:href="@{/}">
+                    <img src="https://p7.hiclipart.com/preview/333/86/490/iphone-telephone-call-logo-email-awesome-vector.jpg" 
+                   alt="Logo" width="30" height="30" class="rounded me-2"/>+679 323 1000.
+                </a>
+            </li>
+          </ul>
+        </div><br/>
+
+          <p class="mb-0"> <strong>Wisdom of the past, guiding the future<br/>&copy;2025 Circle of Knowledge</strong></p><br/>
+        </footer>
+
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Custom Script -->
+        <script th:src="@{/js/script.js}"></script>
     </body>
 </html>
