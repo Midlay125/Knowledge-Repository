@@ -32,19 +32,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                   <button class="btn btn-success" type="submit">🔍</button>
                 </form>
                 <div class="navbar-brand d-flex align-items-center" th:href="@{/}">
-                  <img src="https://static.vecteezy.com/system/resources/thumbnails/001/505/138/small_2x/notification-bell-icon-free-vector.jpg" 
-                       alt="Notification" width="40" height="40" class="rounded me-2"/>
-                  <img src="https://cdn-icons-png.flaticon.com/512/7077/7077313.png" 
-                       alt="Profile" width="40" height="40" class="rounded"/>
+                    <img src="https://static.vecteezy.com/system/resources/thumbnails/001/505/138/small_2x/notification-bell-icon-free-vector.jpg" 
+                         alt="Notification" width="40" height="40" class="rounded me-2"/>
+                    <img src="https://cdn-icons-png.flaticon.com/512/7077/7077313.png" 
+                         alt="Profile" width="40" height="40" class="rounded"/>
                 </div>
-                <div sec:authorize="isAuthenticated()">
-                    Welcome <b><span sec:authentication="name">Username</span></b>
-                    &nbsp;
-                    <i><span sec:authentication="principal.authorities">Roles</span></i>
+                <div sec:authorize="isAuthenticated()" class = "Name">
+                    Welcome <b><span sec:authentication="principal.username">Username</span></b>
+                    <br />
+                    <form th:action="@{/logout}" method="post">
+                        <input type="submit" value="Logout" />
+                    </form>
                 </div>
-                <form th:action="@{/logout}" method="post">
-                    <input type="submit" value="Logout" />
-                </form>
             </div>
         </nav>
 
@@ -52,7 +51,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="bg-success-subtle py-2">
           <ul class="nav justify-content-center">
             <li class="nav-item"><a class="nav-link text-dark fw-bold" th:href="@{/}">Home</a></li>
-            <li class="nav-item"><a class="nav-link text-dark fw-bold" th:href="@{/}">Archive</a></li>
+            <li class="nav-item"><a class="nav-link text-dark fw-bold" th:href="@{/archive}">Archive</a></li>
            <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle text-dark fw-bold" th:href="@{/}" role="button" data-bs-toggle="dropdown">Resources</a>
               <ul class="dropdown-menu">

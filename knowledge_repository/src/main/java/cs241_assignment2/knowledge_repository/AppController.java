@@ -20,4 +20,9 @@ public class AppController {
         
         return "index";
     }
+    
+    @GetMapping("/archive")
+    public String viewArchive() {
+        return "/archive";
+    }
 }
