@@ -3,39 +3,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/Other/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : Oct 2, 2025, 5:37:45 AM
+    Created on : Oct 3, 2025, 2:06:49 AM
     Author     : Issac
 */
-.thread-container {
-    max-width: 800px;
-    margin: auto;
-    padding: 20px;
-}
-
-.thread-meta {
-    color: gray;
-    font-size: 0.9em;
-    margin-bottom: 10px;
-}
-
-.thread-body {
-    padding: 15px;
-    background-color: #f8f9fa;
-    border-radius: 6px;
-    margin-bottom: 20px;
-}
-
-.comments-container {
-    margin-top: 10px;
-}
-
-.comment-card {
-    border: 1px solid #ddd;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-    background-color: #fff;
-}
 
 body {
   background: #f0fdf4; /* soft pale green */
